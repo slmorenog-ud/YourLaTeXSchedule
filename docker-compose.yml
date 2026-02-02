@@ -2,21 +2,98 @@ services:
   constructor-horario:
     image: texlive/texlive:latest
     container_name: mi_latex_local
-    # Mapeamos la carpeta actual (.) a /workdir dentro del contenedor
     volumes:
       - .:/workdir
     working_dir: /workdir/Schedules
-    # El comando:
-    # 1. Crea carpeta 'build' si no existe
-    # 2. Copia las fuentes TTF al directorio de fuentes del sistema
-    # 3. Actualiza la cache de fuentes
-    # 4. Compila con lualatex desde Schedules/
-    # 5. Mueve archivos auxiliares a build
+    environment:
+      # Default schedule to compile (can be overridden)
+      - SCHEDULE=${SCHEDULE:-UScheduleSophie}
+      # Comma-separated list of schedules (compiles multiple)
+      - SCHEDULES=${SCHEDULES:-}
+    # Dynamic compilation command
+    # Usage:
+    #   docker compose up                          -> Compiles UScheduleSophie.tex (default)
+    #   SCHEDULE=UScheduleSergio docker compose up -> Compiles UScheduleSergio.tex
+    #   SCHEDULES="UScheduleSophie,UScheduleSergio" docker compose up -> Compiles both
     command: >
-      /bin/sh -c "mkdir -p ../build && 
-      mkdir -p ~/.local/share/fonts &&
-      cp -f ../Fonts/*.ttf ~/.local/share/fonts/ &&
-      fc-cache -f -v &&
-      lualatex -interaction=nonstopmode -halt-on-error UScheduleSophie.tex && 
-      mv -f UScheduleSophie.aux UScheduleSophie.log UScheduleSophie.fls UScheduleSophie.fdb_latexmk ../build/ 2>/dev/null || true &&
-      ([ -f missfont.log ] && mv missfont.log ../build/ || true)"
+      /bin/sh -c "
+      set -e
+      
+      echo '🔧 Setting up LaTeX environment...'
+      mkdir -p ../build
+      mkdir -p ~/.local/share/fonts
+      
+      # Copy fonts and update cache
+      if [ -n \"\$(ls -A ../Fonts/*.ttf 2>/dev/null)\" ]; then
+        echo '📦 Installing custom fonts...'
+        cp -f ../Fonts/*.ttf ~/.local/share/fonts/
+        fc-cache -f -v > /dev/null 2>&1
+        echo '✅ Fonts installed'
+      fi
+      
+      # Function to compile a single schedule
+      compile_schedule() {
+        local schedule=\$1
+        local tex_file=\"\${schedule}.tex\"
+        
+        if [ ! -f \"\$tex_file\" ]; then
+          echo \"❌ Error: \$tex_file not found in Schedules/\"
+          return 1
+        fi
+        
+        echo \"\"
+        echo \"📝 Compiling \$tex_file...\"
+        echo \"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\"
+        
+        # Compile with lualatex
+        if lualatex -interaction=nonstopmode -halt-on-error \"\$tex_file\"; then
+          echo \"✅ Successfully compiled \$schedule.pdf\"
+          
+          # Move auxiliary files to build/
+          for ext in aux log fls fdb_latexmk; do
+            [ -f \"\${schedule}.\$ext\" ] && mv -f \"\${schedule}.\$ext\" ../build/ || true
+          done
+          [ -f missfont.log ] && mv -f missfont.log ../build/ || true
+          
+          return 0
+        else
+          echo \"❌ Failed to compile \$tex_file\"
+          # Still move logs for debugging
+          [ -f \"\${schedule}.log\" ] && mv -f \"\${schedule}.log\" ../build/ || true
+          return 1
+        fi
+      }
+      
+      # Main compilation logic
+      if [ -n \"\$SCHEDULES\" ]; then
+        # Compile multiple schedules
+        echo \"📚 Batch compilation mode: \$SCHEDULES\"
+        IFS=',' read -ra SCHEDULE_ARRAY <<< \"\$SCHEDULES\"
+        
+        success_count=0
+        fail_count=0
+        
+        for schedule in \"\${SCHEDULE_ARRAY[@]}\"; do
+          # Trim whitespace
+          schedule=\$(echo \"\$schedule\" | xargs)
+          
+          if compile_schedule \"\$schedule\"; then
+            success_count=\$((success_count + 1))
+          else
+            fail_count=\$((fail_count + 1))
+          fi
+        done
+        
+        echo \"\"
+        echo \"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\"
+        echo \"📊 Compilation Summary:\"
+        echo \"   ✅ Successful: \$success_count\"
+        echo \"   ❌ Failed: \$fail_count\"
+        
+        [ \$fail_count -eq 0 ] && exit 0 || exit 1
+      else
+        # Compile single schedule
+        echo \"📄 Single compilation mode: \$SCHEDULE\"
+        compile_schedule \"\$SCHEDULE\"
+      fi
+      "

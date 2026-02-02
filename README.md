@@ -10,11 +10,12 @@
 
 ## ✨ Características
 
-✅ **Compilación instantánea** - Sin instalar LaTeX localmente  
+✅ **Compilación dinámica** - Compila cualquier horario sin editar archivos  
+✅ **Modo batch** - Compila múltiples horarios simultáneamente  
 ✅ **Docker containerizado** - Ambiente consistente y reproducible  
 ✅ **Fuentes personalizables** - Usa cualquier fuente TTF/OTF  
-✅ **Múltiples horarios** - Gestiona varios horarios en un solo proyecto  
-✅ **Configuración modular** - Separa estilos y contenido fácilmente  
+✅ **Scripts helper** - Comandos rápidos con PowerShell/Bash  
+✅ **Análisis de PDFs** - Compara y extrae información de schedules  
 
 ---
 
@@ -70,20 +71,111 @@ Descarga tus fuentes favoritas desde [Google Fonts](https://fonts.google.com) o 
 cp ~/Descargas/*.ttf Fonts/
 ```
 
-#### 3️⃣ **Compilar tu Primer Horario**
+#### 3️⃣ **Compilar un Horario**
 
-```bash
-# Primera compilación (descargará ~4GB de TeXLive)
-docker compose up
+**Opción A: Script Helper (Recomendado) 🚀**
+
+```powershell
+# Windows PowerShell
+.\compile.ps1 UScheduleSophie     # Compila un horario específico
+.\compile.ps1 -All                # Compila todos los horarios
+.\compile.ps1 -List               # Lista horarios disponibles
 ```
 
-✨ ¡Tu PDF está listo en `build/UScheduleSophie.pdf`!
+```bash
+# Linux/macOS
+./compile.sh UScheduleSophie      # Compila un horario específico
+./compile.sh --all                # Compila todos los horarios
+./compile.sh --list               # Lista horarios disponibles
+```
 
-#### 4️⃣ **Compilaciones Futuras**
+**Opción B: Docker Compose Directo**
 
 ```bash
-# Las siguientes compilaciones son mucho más rápidas
+# Compilar horario por defecto (UScheduleSophie)
 docker compose up
+
+# Compilar un horario específico
+SCHEDULE=UScheduleSergio docker compose up
+
+# Compilar múltiples horarios
+SCHEDULES="UScheduleSophie,UScheduleSergio" docker compose up
+```
+
+✨ ¡Tus PDFs están listos en `Schedules/`!
+
+#### 4️⃣ **Analizar PDFs (Opcional)**
+
+```bash
+# Instalar dependencias Python
+pip install -r requirements.txt
+
+# Extraer texto de un PDF
+python extract_pdf.py Schedules/UScheduleSophie.pdf
+
+# Comparar múltiples horarios
+python extract_pdf.py --compare Schedules/*.pdf
+
+# Parsear información estructurada
+python extract_pdf.py --parse Schedules/UScheduleSophie.pdf
+```
+
+---
+
+## 🎯 Uso Avanzado
+
+### Compilación Dinámica con Variables
+
+El `docker-compose.yml` ahora soporta compilación dinámica mediante variables de entorno:
+
+```bash
+# Variable SCHEDULE: Compila un archivo específico
+SCHEDULE=MiHorario docker compose up
+
+# Variable SCHEDULES: Compila múltiples archivos (separados por coma)
+SCHEDULES="Horario1,Horario2,Horario3" docker compose up
+```
+
+### Script Helper Completo
+
+**Windows (PowerShell):**
+```powershell
+.\compile.ps1 -List                    # Ver horarios disponibles
+.\compile.ps1 UScheduleSophie          # Compilar uno
+.\compile.ps1 -All                     # Compilar todos
+.\compile.ps1 -Clean                   # Limpiar archivos build
+```
+
+**Linux/macOS (Bash):**
+```bash
+./compile.sh --list                    # Ver horarios disponibles
+./compile.sh UScheduleSophie           # Compilar uno
+./compile.sh --all                     # Compilar todos
+./compile.sh --clean                   # Limpiar archivos build
+```
+
+### Análisis Avanzado de PDFs
+
+El script `extract_pdf.py` mejorado incluye:
+
+```bash
+# Modo básico: extraer texto
+python extract_pdf.py archivo.pdf
+
+# Procesar directorio completo
+python extract_pdf.py --directory Schedules/
+
+# Comparar múltiples schedules
+python extract_pdf.py --compare Schedules/Sophie.pdf Schedules/Sergio.pdf
+
+# Parsear información estructurada (cursos, grupos, días)
+python extract_pdf.py --parse Schedules/UScheduleSophie.pdf
+
+# Guardar resultados en archivo
+python extract_pdf.py Schedules/*.pdf --output resultados.txt
+
+# Modo verbose
+python extract_pdf.py archivo.pdf --verbose
 ```
 
 ---
@@ -97,24 +189,17 @@ docker compose up
    cp Schedules/UScheduleSophie.tex Schedules/MySchedule.tex
    ```
 
-2. **Edita** tu nuevo archivo LaTeX:
-   ```latex
-   \input{../Configurations/UConfigurationSE.tex}
-   
-   \begin{document}
-   
-   \begin{tikzpicture}
-       % Tu diseño aquí
-   \end{tikzpicture}
-   
-   \end{document}
+2. **Edita** tu nuevo archivo LaTeX con tus datos
+
+3. **Compila usando el script helper:**
+   ```bash
+   .\compile.ps1 MySchedule    # Windows
+   ./compile.sh MySchedule     # Linux/macOS
    ```
 
-3. **Actualiza** el `docker-compose.yml` con el nombre de tu archivo:
-   ```yaml
-   command: >
-     ...
-     lualatex -interaction=nonstopmode -halt-on-error MySchedule.tex && ...
+   O con docker-compose:
+   ```bash
+   SCHEDULE=MySchedule docker compose up
    ```
 
 ### Cambiar la Fuente

@@ -1,0 +1,5 @@
+# Python dependencies for PDF extraction
+pypdf>=3.0.0
+
+# Alternative PDF library (pypdf is preferred)
+# PyPDF2>=3.0.0
