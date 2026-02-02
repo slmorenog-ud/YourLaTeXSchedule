@@ -1,0 +1,443 @@
+\documentclass[extrafontsizes, 11pt]{memoir}
+\usepackage{xcolor}
+\usepackage[c4paper,left=1cm, right=1cm,top=1cm, bottom=1cm, landscape]{geometry} 
+\usepackage{fontspec}
+\usepackage[spanish]{babel}
+\usepackage{multicol}
+\usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{math} %needed tikz library
+\usepackage{xfp}
+\usepackage{ifthen}
+
+\ExplSyntaxOn
+% Crea títulos grandes y medianos para letras y números (usado en el título principal)
+\NewDocumentCommand{\medstyledtitle}{m}
+{
+  \group_begin:
+  \str_map_inline:nn {#1}
+  {
+    \__medstyledtitle_process:n {##1}
+  }
+  \group_end:
+}
+
+\cs_new_protected:Nn \__medstyledtitle_process:n
+{
+  \str_case_e:nnF { \tl_upper_case:n {#1} }
+  {
+    % Definición de formato para letras, números y símbolos
+    {A}{\textbf{\fontsize{24pt}{26pt}\selectfont A}}
+    {B}{\textbf{\fontsize{24pt}{26pt}\selectfont B}}
+    {C}{\textbf{\fontsize{24pt}{26pt}\selectfont C}}
+    {D}{\textbf{\fontsize{24pt}{26pt}\selectfont D}}
+    {E}{\textbf{\fontsize{24pt}{26pt}\selectfont E}}
+    {F}{\textbf{\fontsize{24pt}{26pt}\selectfont F}}
+    {G}{\textbf{\fontsize{24pt}{26pt}\selectfont G}}
+    {H}{\textbf{\fontsize{24pt}{26pt}\selectfont H}}
+    {I}{\textbf{\fontsize{24pt}{26pt}\selectfont I}}
+    {J}{\textbf{\fontsize{24pt}{26pt}\selectfont J}}
+    {K}{\textbf{\fontsize{24pt}{26pt}\selectfont K}}
+    {L}{\textbf{\fontsize{24pt}{26pt}\selectfont L}}
+    {M}{\textbf{\fontsize{24pt}{26pt}\selectfont M}}
+    {N}{\textbf{\fontsize{24pt}{26pt}\selectfont N}}
+    {O}{\textbf{\fontsize{24pt}{26pt}\selectfont O}}
+    {P}{\textbf{\fontsize{24pt}{26pt}\selectfont P}}
+    {Q}{\textbf{\fontsize{24pt}{26pt}\selectfont Q}}
+    {R}{\textbf{\fontsize{24pt}{26pt}\selectfont R}}
+    {S}{\textbf{\fontsize{24pt}{26pt}\selectfont S}}
+    {T}{\textbf{\fontsize{24pt}{26pt}\selectfont T}}
+    {U}{\textbf{\fontsize{24pt}{26pt}\selectfont U}}
+    {V}{\textbf{\fontsize{24pt}{26pt}\selectfont V}}
+    {W}{\textbf{\fontsize{24pt}{26pt}\selectfont W}}
+    {X}{\textbf{\fontsize{24pt}{26pt}\selectfont X}}
+    {Y}{\textbf{\fontsize{24pt}{26pt}\selectfont Y}}
+    {Z}{\textbf{\fontsize{24pt}{26pt}\selectfont Z}}
+    {Á}{\textbf{\fontsize{24pt}{26pt}\selectfont Á}}
+    {É}{\textbf{\fontsize{24pt}{26pt}\selectfont É}}
+    {Í}{\textbf{\fontsize{24pt}{26pt}\selectfont Í}}
+    {Ó}{\textbf{\fontsize{24pt}{26pt}\selectfont Ó}}
+    {Ú}{\textbf{\fontsize{24pt}{26pt}\selectfont Ú}}
+    {Ñ}{\textbf{\fontsize{24pt}{26pt}\selectfont Ñ}}
+    
+    % Números (0-9)
+    {0}{\textbf{\fontsize{24pt}{26pt}\selectfont 0}}
+    {1}{\textbf{\fontsize{24pt}{26pt}\selectfont 1}}
+    {2}{\textbf{\fontsize{24pt}{26pt}\selectfont 2}}
+    {3}{\textbf{\fontsize{24pt}{26pt}\selectfont 3}}
+    {4}{\textbf{\fontsize{24pt}{26pt}\selectfont 4}}
+    {5}{\textbf{\fontsize{24pt}{26pt}\selectfont 5}}
+    {6}{\textbf{\fontsize{24pt}{26pt}\selectfont 6}}
+    {7}{\textbf{\fontsize{24pt}{26pt}\selectfont 7}}
+    {8}{\textbf{\fontsize{24pt}{26pt}\selectfont 8}}
+    {9}{\textbf{\fontsize{24pt}{26pt}\selectfont 9}}
+    
+    % Símbolos especiales
+    { }{\hspace{0.45em}}
+    {:}{\fontsize{17pt}{19pt}\selectfont :}
+  }
+  {\fontsize{17pt}{19pt}\selectfont #1} % Por defecto, tamaño mediano
+}
+
+\NewDocumentCommand{\smallmedstyledtitle}{m}
+{
+  \group_begin:
+  \str_map_inline:nn {#1}
+  {
+    \__smallmedstyledtitle_process:n {##1}
+  }
+  \group_end:
+}
+
+\cs_new_protected:Nn \__smallmedstyledtitle_process:n
+{
+  \str_case_e:nnF { \tl_upper_case:n {#1} }
+  {
+    % Letras (mayúsculas y acentuadas)
+    {A}{\textbf{\fontsize{19pt}{21pt}\selectfont A}}
+    {B}{\textbf{\fontsize{19pt}{21pt}\selectfont B}}
+    {C}{\textbf{\fontsize{19pt}{21pt}\selectfont C}}
+    {D}{\textbf{\fontsize{19pt}{21pt}\selectfont D}}
+    {E}{\textbf{\fontsize{19pt}{21pt}\selectfont E}}
+    {F}{\textbf{\fontsize{19pt}{21pt}\selectfont F}}
+    {G}{\textbf{\fontsize{19pt}{21pt}\selectfont G}}
+    {H}{\textbf{\fontsize{19pt}{21pt}\selectfont H}}
+    {I}{\textbf{\fontsize{19pt}{21pt}\selectfont I}}
+    {J}{\textbf{\fontsize{19pt}{21pt}\selectfont J}}
+    {K}{\textbf{\fontsize{19pt}{21pt}\selectfont K}}
+    {L}{\textbf{\fontsize{19pt}{21pt}\selectfont L}}
+    {M}{\textbf{\fontsize{19pt}{21pt}\selectfont M}}
+    {N}{\textbf{\fontsize{19pt}{21pt}\selectfont N}}
+    {O}{\textbf{\fontsize{19pt}{21pt}\selectfont O}}
+    {P}{\textbf{\fontsize{19pt}{21pt}\selectfont P}}
+    {Q}{\textbf{\fontsize{19pt}{21pt}\selectfont Q}}
+    {R}{\textbf{\fontsize{19pt}{21pt}\selectfont R}}
+    {S}{\textbf{\fontsize{19pt}{21pt}\selectfont S}}
+    {T}{\textbf{\fontsize{19pt}{21pt}\selectfont T}}
+    {U}{\textbf{\fontsize{19pt}{21pt}\selectfont U}}
+    {V}{\textbf{\fontsize{19pt}{21pt}\selectfont V}}
+    {W}{\textbf{\fontsize{19pt}{21pt}\selectfont W}}
+    {X}{\textbf{\fontsize{19pt}{21pt}\selectfont X}}
+    {Y}{\textbf{\fontsize{19pt}{21pt}\selectfont Y}}
+    {Z}{\textbf{\fontsize{19pt}{21pt}\selectfont Z}}
+    {Á}{\textbf{\fontsize{19pt}{21pt}\selectfont Á}}
+    {É}{\textbf{\fontsize{19pt}{21pt}\selectfont É}}
+    {Í}{\textbf{\fontsize{19pt}{21pt}\selectfont Í}}
+    {Ó}{\textbf{\fontsize{19pt}{21pt}\selectfont Ó}}
+    {Ú}{\textbf{\fontsize{19pt}{21pt}\selectfont Ú}}
+    {Ñ}{\textbf{\fontsize{19pt}{21pt}\selectfont Ñ}}
+    
+    % Números (0-9)
+    {0}{\textbf{\fontsize{19pt}{21pt}\selectfont 0}}
+    {1}{\textbf{\fontsize{19pt}{21pt}\selectfont 1}}
+    {2}{\textbf{\fontsize{19pt}{21pt}\selectfont 2}}
+    {3}{\textbf{\fontsize{19pt}{21pt}\selectfont 3}}
+    {4}{\textbf{\fontsize{19pt}{21pt}\selectfont 4}}
+    {5}{\textbf{\fontsize{19pt}{21pt}\selectfont 5}}
+    {6}{\textbf{\fontsize{19pt}{21pt}\selectfont 6}}
+    {7}{\textbf{\fontsize{19pt}{21pt}\selectfont 7}}
+    {8}{\textbf{\fontsize{19pt}{21pt}\selectfont 8}}
+    {9}{\textbf{\fontsize{19pt}{21pt}\selectfont 9}}
+    
+    % Símbolos especiales
+    { }{\hspace{0.45em}}
+    {:}{\fontsize{17pt}{19pt}\selectfont :}
+  }
+  {\fontsize{17pt}{19pt}\selectfont #1}
+}
+\ExplSyntaxOff
+
+\makeatletter
+\title{Horario de Clases Periodo 2025-3}\let\Title\@title
+\author{A. Einstein}          \let\Author\@author
+\date{Agosto 2025}           \let\Date\@date
+\makeatother
+
+\setmainfont{Source Sans Pro}
+
+% Some colors
+\definecolor{Rojo}{HTML}{ffb3ba}
+\definecolor{Beige}{HTML}{ffdcb3}
+\definecolor{Amarillo}{HTML}{ffffb3}
+\definecolor{Verde}{HTML}{b3ffb3}
+\definecolor{Azul}{HTML}{b3ccff}
+\definecolor{Violeta}{HTML}{dfb3ff}
+\definecolor{Rosa}{HTML}{ffb3ff}
+\definecolor{AzulClaro}{HTML}{b3e0ff}
+\definecolor{Rosado}{HTML}{ffb3d9}
+\definecolor{Naranja}{HTML}{ffcc99}
+\definecolor{VerdePistacho}{HTML}{ccffcc}
+\definecolor{MoradoClaro}{HTML}{d9b3ff}
+\definecolor{CafeClaro}{HTML}{e6ccb3}
+\definecolor{CafeMedio}{HTML}{d9b38c}
+\definecolor{VerdeOscuro}{HTML}{99cc99}
+\definecolor{CafeOscuro}{HTML}{b38c73}
+\definecolor{Fuxia}{HTML}{ff66ff}
+\definecolor{Gris}{HTML}{e6e6e6}
+\definecolor{Salmon}{HTML}{ff9999}
+\definecolor{PastelAzul}{HTML}{aec6cf}
+\definecolor{PastelVerde}{HTML}{b5e7a0}
+\definecolor{PastelRosa}{HTML}{ffb6c1}
+\definecolor{PastelNaranja}{HTML}{ffcc99}
+\definecolor{PastelLima}{HTML}{e6e6b2}
+\definecolor{PastelTurquesa}{HTML}{a2d5c6}
+\definecolor{PastelAmarillo}{HTML}{fffacd}
+\definecolor{PastelLila}{HTML}{d8bfd8}
+\definecolor{PastelSalmon}{HTML}{ffd1ba}
+\definecolor{PastelEsmeralda}{HTML}{c9e4ca}
+\definecolor{PastelCian}{HTML}{b3e0ff}
+\definecolor{PastelMagenta}{HTML}{ffc2e2}
+\definecolor{PastelOliva}{HTML}{d1e0a3}
+\definecolor{PastelMorado}{HTML}{c3b1e1}
+\definecolor{PastelCoral}{HTML}{f8a488}
+\definecolor{PastelMenta}{HTML}{a2e4b8}
+
+% Days
+\def\LU{1}
+\def\MA{2}
+\def\ME{3}
+\def\JE{4}
+\def\VE{5}
+
+% Parameters
+\def\NJ{5}	% Number of days (Lunes a Viernes)
+\def\hi{6}	% First hour of the day (6 AM)
+\def\hf{15}	% Last hour of the day (3 PM)
+\def\H{18.0}% Height of the timetable
+\def\D{30.0}% Width of the timetable
+\def\h{1.0}	% Height of the header row (days row)
+\def\d{0.0} % Width of the first column (times column) - ahora 0 porque usamos márgenes
+
+% Days of the timetable. Should contain only the ones displayed
+\newcommand\Days{\textbf{Lunes}, \textbf{Martes}, \textbf{Miércoles}, \textbf{Jueves}, \textbf{Viernes}}
+
+% Márgenes para etiquetas de horas
+\def\leftMargin{2.5}
+\def\rightMargin{2.5}
+\def\innerWidth{25.0}
+
+% Constants
+\def\dd{\fpeval{\innerWidth / \NJ}} % Ancho de cada columna de día
+\def\Dh{\fpeval{\hf - \hi}}		% Total hours per days (Width of columns)
+\def\dh{\fpeval{(\H-\h) / \Dh}}	% Height of an hour (Height of rows)
+
+% Definir donde termina el jueves
+\def\xJuevesEnd{\fpeval{\leftMargin + 4 * \dd}}
+
+% Definir las horas del viernes (en formato militar)
+\def\FridayHours{6/40, 7/10, 8/40, 9/40, 10/20, 14/30}
+
+% Ajustar la posición de las etiquetas
+\def\rightLabelX{\fpeval{\leftMargin + \innerWidth + \rightMargin/2}} % 2.5 + 25 + 1.25 = 28.75
+\def\leftLabelX{\fpeval{\leftMargin/2}} % 1.25
+
+% Función para convertir hora militar a formato 12h
+\newcommand{\formatHour}[2]{
+  \ifnum#1>12
+    \fpeval{#1-12}:#2~PM
+  \else
+    #1:#2~AM
+  \fi
+}
+
+% Event command:
+% Input: Name1, Name2, Day, Starting time, Duration, Location, Color
+% Output: Draw box in TikZ
+\NewDocumentCommand{\event}{ O{Nombre} O{Apellido} O{\LU} O{\hi} O{1} O{Lugar} O{Beige}}{
+% Transform sexagesimal in decimal
+\def\Hdebut{\fpeval{floor(#4)}};	% Starting hour (integer)
+\def\Mdebut{\fpeval{round((#4 - \Hdebut )*100)}};	% Starting minute (integer)
+\def\Debutdeci{\fpeval{\Hdebut + (#4 - \Hdebut ) / 0.6}};	% Starting time (rational)
+
+\def\Hduration{\fpeval{floor(#5)}};	% Duration  hour (integer)
+\def\Mduration{\fpeval{round((#5-\Hduration)*100)}};	% Duration minute (integer)
+\def\Durationdeci{\fpeval{\Hduration + ((#5-\Hduration) / 0.6)}};	% Duration (rational)
+
+\def\Findeci{\fpeval{\Debutdeci + \Durationdeci}}; % Ending time (rational)
+\def\Hfin{\fpeval{floor(\Findeci)}}; % Ending hour (integer)
+\def\Mfin{\fpeval{round((\Findeci - \Hfin)*60.0)}}; % Ending minute (integer)
+
+\def\x{\fpeval{\leftMargin + ( #3 - 1 ) * \dd}}; % Columns position (start)
+\def\xx{\fpeval{\leftMargin + #3 * \dd}}; % Columns position (end)
+\def\yy{\fpeval{(\hf - \Debutdeci ) * \dh}}; % Row position (start)
+\def\y{\fpeval{\yy - \Durationdeci * \dh}}; % Row position (end)
+
+% Ajustar el ancho del texto para evitar superposición
+\def\textwidthadj{\fpeval{\dd - 0.2}} % Reducir ligeramente el ancho del texto
+
+% Display double zero (i.e. 14:00 instead of 14:0 )
+\ifthenelse{\equal{\Mdebut}{0}} {
+  \ifthenelse{\equal{\Mfin}{0}} {
+    \filldraw [fill= #7, draw=black, rounded corners=5pt] (\x, \y) rectangle (\xx, \yy) 
+        node[pos=.5, text width=\textwidthadj cm, align=center] {\fontsize{14}{16}\selectfont\textbf{#1}};
+  } {
+    \filldraw [fill= #7, draw=black, rounded corners=5pt] (\x, \y) rectangle (\xx, \yy) 
+        node[pos=.5, text width=\textwidthadj cm, align=center] {\fontsize{14}{16}\selectfont\textbf{#1}};
+  }
+} {
+  \ifthenelse{\equal{\Mfin}{0}} {
+    \filldraw [fill= #7, draw=black, rounded corners=5pt] (\x, \y) rectangle (\xx, \yy) 
+        node[pos=.5, text width=\textwidthadj cm, align=center] {\fontsize{14}{16}\selectfont\textbf{#1}};
+  } {
+    \filldraw [fill= #7, draw=black, rounded corners=5pt] (\x, \y) rectangle (\xx, \yy) 
+        node[pos=.5, text width=\textwidthadj cm, align=center] {\fontsize{14}{16}\selectfont\textbf{#1}};
+  }
+}
+}
+
+% Comando para eventos que abarcan múltiples días
+\NewDocumentCommand{\eventrange}{ O{Nombre} O{Apellido} O{\LU} O{\LU} O{\hi} O{1} O{Lugar} O{Beige} }{
+% Transform sexagesimal in decimal
+\def\Hdebut{\fpeval{floor(#5)}};
+\def\Mdebut{\fpeval{round((#5 - \Hdebut )*100)}};
+\def\Debutdeci{\fpeval{\Hdebut + (#5 - \Hdebut ) / 0.6}};
+
+\def\Hduration{\fpeval{floor(#6)}};
+\def\Mduration{\fpeval{round((#6-\Hduration)*100)}};
+\def\Durationdeci{\fpeval{\Hduration + ((#6-\Hduration) / 0.6)}};
+
+\def\Findeci{\fpeval{\Debutdeci + \Durationdeci}};
+\def\Hfin{\fpeval{floor(\Findeci)}};
+\def\Mfin{\fpeval{round((\Findeci - \Hfin)*60.0)}};
+
+% Días: #3 es día inicio, #4 es día fin
+\def\x{\fpeval{\leftMargin + ( #3 - 1 ) * \dd}};
+\def\xx{\fpeval{\leftMargin + #4 * \dd}};
+\def\yy{\fpeval{(\hf - \Debutdeci ) * \dh}};
+\def\y{\fpeval{\yy - \Durationdeci * \dh}};
+
+% Ajustar el ancho del texto para evitar superposición
+\def\textwidthadj{\fpeval{(\xx - \x) - 0.2}} % Reducir ligeramente el ancho del texto
+
+\filldraw [fill= #8, draw=black, rounded corners=5pt] (\x, \y) rectangle (\xx, \yy) 
+    node[pos=.5, text width=\textwidthadj cm, align=center] {\fontsize{14}{16}\selectfont\textbf{#1}};
+}
+
+\begin{document}
+\pagenumbering{gobble}
+\centering
+\vspace{-2em}%
+  \medstyledtitle{H}%
+  \smallmedstyledtitle{ORARIO}%
+  \hspace{0.45em}%
+  \smallmedstyledtitle{DE}%
+  \hspace{0.45em}%
+  \medstyledtitle{C}%
+  \smallmedstyledtitle{LASES}%
+  \hspace{0.45em}%
+  \smallmedstyledtitle{1001}%
+\linebreak
+\Large CEMODÉN 2025
+\normalsize 
+\vfill
+
+\begin{tikzpicture}
+\draw [draw=black, rounded corners=10pt] (0.0,0.0) rectangle (30.0,18.0);
+
+% Draw horizontal lines at specific times for Monday to Thursday
+\foreach \horaMilitar/\minuto in {
+6/40, 7/45, 8/45, 9/30, 10/40, 11/45, 12/30, 13/30, 14/30
+}{
+  \def\horadecimal{\fpeval{\horaMilitar + \minuto/60}};
+  \def\y{\fpeval{(15 - \horadecimal) * \dh}};
+  \draw[dashed](\leftMargin - 0.2, \y)--(\xJuevesEnd, \y);  % Se detiene en el jueves
+  
+  % Convertir hora militar a formato 12h
+  \pgfmathparse{int(\horaMilitar>12 ? \horaMilitar-12 : \horaMilitar)}
+  \let\horaDoce\pgfmathresult
+  \pgfmathparse{\horaMilitar>=12 ? "PM" : "AM"}
+  \let\ampm\pgfmathresult
+  
+  % Ajuste especial para las 12:00
+  \ifnum\horaMilitar=12
+    \def\ampm{PM}
+  \fi
+  \ifnum\horaMilitar=0
+    \def\horaDoce{12}
+    \def\ampm{AM}
+  \fi
+  
+  % Add labels for all hours with different format for exact hours
+  \ifnum\minuto=0
+    \node at (\leftLabelX,\y) {\fontsize{14}{16}\selectfont  \horaDoce~\ampm}; % Hora exacta: solo hora y AM/PM
+  \else
+    \node at (\leftLabelX,\y) {\fontsize{14}{16}\selectfont  \horaDoce:\minuto~\ampm}; % Otras: hora:minutos AM/PM
+  \fi
+};
+% Draw horizontal lines for Friday
+\foreach \horaMilitar/\minuto in {6/40, 7/10, 8/40, 9/40, 10/20, 14/30} {
+  \def\horadecimal{\fpeval{\horaMilitar + \minuto/60}};
+  \def\y{\fpeval{(15 - \horadecimal) * \dh}};
+  \draw[dashed](\xJuevesEnd, \y)--(\leftMargin + \innerWidth + 0.2, \y);  % Desde el jueves hasta el final (viernes)
+  
+  % Convertir hora militar a formato 12h
+  \pgfmathparse{int(\horaMilitar>12 ? \horaMilitar-12 : \horaMilitar)}
+  \let\horaDoce\pgfmathresult
+  \pgfmathparse{\horaMilitar>=12 ? "PM" : "AM"}
+  \let\ampm\pgfmathresult
+  
+  % Ajuste especial para las 12:00
+  \ifnum\horaMilitar=12
+    \def\ampm{PM}
+  \fi
+  \ifnum\horaMilitar=0
+    \def\horaDoce{12}
+    \def\ampm{AM}
+  \fi
+  
+  % Add labels on the right for Friday
+  \ifnum\minuto=0
+    \node at (\rightLabelX,\y) {\fontsize{14}{16}\selectfont  \horaDoce~\ampm};
+  \else
+    \node at (\rightLabelX,\y) {\fontsize{14}{16}\selectfont  \horaDoce:\minuto~\ampm};
+  \fi
+};
+
+% Day headers - CENTERED (tamaño aumentado de 16pt a 18pt)
+\foreach \j [count=\i] in \Days{
+  \def\y{\fpeval{\H-0.5*\h-0.5}}; 
+  \def\x{\fpeval{\leftMargin + (\i - 0.5) * \dd}}; % Centered in each column
+  \node at (\x , \y) {{\fontsize{20}{20}\selectfont\bfseries \j}};
+};
+
+% Add events
+% Lunes
+\event[MATEMÁTICAS][][\LU][6.40][1.05][][Rojo];
+\event[FILOSOFÍA][][\LU][7.45][1][][AzulClaro];
+\event[INFORMÁTICA][][\LU][9.3][2.15][][PastelTurquesa];
+\event[QUÍMICA][][\LU][12.30][2][][Naranja];
+
+% Martes
+\event[ESPAÑOL][][\MA][6.40][1.05][][PastelVerde];
+\event[FÍSICA][][\MA][7.45][1][][MoradoClaro];
+\event[BIOLOGÍA][][\MA][9.30][1.1][][Amarillo];
+\event[SOCIALES][][\MA][10.40][1.05][][CafeClaro];
+\event[MATEMÁTICAS][][\MA][12.30][2][][Rojo];
+
+% Miércoles
+\event[INGLÉS][][\ME][6.40][2.05][][Fuxia];
+\event[DEMOCRACIA][][\ME][9.3][1.1][][PastelEsmeralda];
+\event[APT. VERBAL][][\ME][10.4][1.05][][PastelAzul];
+\event[EDU. FÍSICA][][\ME][12.30][1][][VerdeOscuro];
+\event[ATENCIÓN][][\ME][13.30][1][][white];
+
+% Jueves
+\event[FÍSICA][][\JE][6.40][2.05][][MoradoClaro];
+\event[ECONOMÍA][][\JE][9.3][1.1][][PastelOliva];
+\event[FILOSOFÍA][][\JE][10.4][1.05][][AzulClaro];
+\event[ESPAÑOL][][\JE][12.3][2][][PastelVerde];
+
+% Descansos unificados (reemplazan los descansos individuales)
+\eventrange[DESCANSO][][\LU][\JE][8.45][0.45][][white];
+\eventrange[DESCANSO][][\LU][\JE][11.45][0.45][][white];
+
+% Viernes (horario especial)
+\event[ERE][][\VE][6.40][0.30][][white];
+\event[INGLÉS][][\VE][7.1][1.30][][Fuxia];
+\event[QUÍMICA][][\VE][8.40][1][][Naranja];
+\event[DESCANSO][][\VE][9.40][0.40][][white];
+\event[LÚDICA][][\VE][10.2][4.1][][white];
+
+\end{tikzpicture}
+\vfill
+\end{document}
