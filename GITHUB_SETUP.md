@@ -21,8 +21,8 @@ cd "c:\Users\smore\Desktop\YourLaTeXSchedule"
 # Renombra la rama a 'main' (recomendado)
 git branch -M main
 
-# Agrega la URL remota (reemplaza tu-usuario con tu username)
-git remote add origin https://github.com/tu-usuario/YourLaTeXSchedule.git
+# Agrega la URL remota
+git remote add origin https://github.com/slmorenog-ud/YourLaTeXSchedule.git
 
 # Sube el código a GitHub
 git push -u origin main
@@ -30,7 +30,7 @@ git push -u origin main
 
 ## Paso 3: Verificación
 
-✅ Ve a `https://github.com/tu-usuario/YourLaTeXSchedule`  
+✅ Ve a `https://github.com/slmorenog-ud/YourLaTeXSchedule`  
 ✅ Deberías ver tus archivos y el README.md formateado
 
 ## Paso 4: Agregar una Licencia (Opcional pero Recomendado)
