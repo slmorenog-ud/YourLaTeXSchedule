@@ -15,20 +15,20 @@ services:
     #   docker compose up                          -> Compiles UScheduleSophie.tex (default)
     #   SCHEDULE=UScheduleSergio docker compose up -> Compiles UScheduleSergio.tex
     #   SCHEDULES="UScheduleSophie,UScheduleSergio" docker compose up -> Compiles both
-    command: >
+    command: |
       /bin/sh -c "
       set -e
-      
-      echo '🔧 Setting up LaTeX environment...'
+
+      echo 'Setting up LaTeX environment...'
       mkdir -p ../build
-      mkdir -p ~/.local/share/fonts
-      
+      mkdir -p /root/.local/share/fonts
+
       # Copy fonts and update cache
-      if [ -n \"\$(ls -A ../Fonts/*.ttf 2>/dev/null)\" ]; then
-        echo '📦 Installing custom fonts...'
-        cp -f ../Fonts/*.ttf ~/.local/share/fonts/
+      if [ -n \"$$(ls -A ../Fonts/*.ttf 2>/dev/null)\" ]; then
+        echo 'Installing custom fonts...'
+        cp -f ../Fonts/*.ttf /root/.local/share/fonts/
         fc-cache -f -v > /dev/null 2>&1
-        echo '✅ Fonts installed'
+        echo 'Fonts installed'
       fi
       
       # Function to compile a single schedule
@@ -68,12 +68,11 @@ services:
       if [ -n "$$SCHEDULES" ]; then
         # Compile multiple schedules
         echo "Batch compilation mode: $$SCHEDULES"
-        IFS=',' read -ra SCHEDULE_ARRAY <<< "$$SCHEDULES"
         
         success_count=0
         fail_count=0
         
-        for schedule in "$${SCHEDULE_ARRAY[@]}"; do
+        for schedule in $$(echo "$$SCHEDULES" | tr ',' ' '); do
           # Trim whitespace
           schedule=$$(echo "$$schedule" | xargs)
           
