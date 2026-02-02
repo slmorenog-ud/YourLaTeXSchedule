@@ -1,0 +1,84 @@
+\documentclass[extrafontsizes,11pt]{memoir}
+
+% Importamos toda la configuración desde el otro archivo
+\input{../Configurations/ConfigurationTLOTR.tex}
+
+%----------------------------------------------------------------------------------------
+%METADATOS DEL DOCUMENTO
+%----------------------------------------------------------------------------------------
+\title{Horario de Clases Periodo 2026-1}
+\author{You}
+\date{Enero 2026}
+
+%----------------------------------------------------------------------------------------
+%CUERPO DEL DOCUMENTO
+%----------------------------------------------------------------------------------------
+\begin{document}
+\pagenumbering{gobble}
+\centering
+
+\vspace{-2em}%
+  \medstyledtitle{H}%
+  \smallmedstyledtitle{ORARIO}%
+  \hspace{0.45em}%
+  \smallmedstyledtitle{DE}%
+  \hspace{0.45em}%
+  \medstyledtitle{C}%
+  \smallmedstyledtitle{LASES}%
+\linebreak
+{\color{OcreLothlorien}\RingbearerFont\fontsize{18}{22}\selectfont Periodo 2026-1}
+\normalsize 
+\vfill
+
+\begin{tikzpicture}
+% Dibujamos el fondo y la cuadrícula (definido en configuracion.tex)
+\DibujarCuadricula
+
+%----------------------------------------------------------------------------------------
+%EVENTOS DEL HORARIO (¡EDITA AQUÍ!)
+%----------------------------------------------------------------------------------------
+
+% --- ECUACIONES DIFERENCIALES ---
+\event{ name={ECUACIONES\\[-3pt]DIFERENCIALES}, group={\fontsize{6pt}{7pt}\selectfont 020-81}, code={88}, credits={III}, day={\MA}, start={6}, dur={2}, place={{\fontsize{7pt}{8pt}\selectfont FICC - ADMINISTRATIVO }\\[-5.5pt] {\fontsize{6pt}{7pt}\selectfont SALA ESPECIALIZADA 401}}, color={GranateRivendel}, logic={B}, professor={\fontsize{5pt}{6pt}\selectfont GERARDO\hspace{0.3em}TOLE\hspace{0.3em}\\ GALVIS\\}, professorwidth={0.33}, type={OB} }
+
+\event{ name={ECUACIONES\\[-3pt]DIFERENCIALES}, group={\fontsize{6pt}{7pt}\selectfont 020-81}, code={88}, credits={III}, day={\JU}, start={6}, dur={2}, place={FICC - SABIO CALDAS \\[-4.5pt] AULA 204}, color={GranateRivendel}, logic={B}, professor={\fontsize{5pt}{6pt}\selectfont GERARDO\hspace{0.3em}TOLE\hspace{0.3em}\\ GALVIS\\}, professorwidth={0.33}, type={OB} }
+
+\event{ name={ECUACIONES\\[-3pt]DIFERENCIALES}, group={\fontsize{6pt}{7pt}\selectfont 020-81}, code={88}, credits={III}, day={\SA}, start={6}, dur={2}, place={FICC - SABIO CALDAS \\[-4.5pt] AULA 204}, color={GranateRivendel}, logic={B}, professor={\fontsize{5pt}{6pt}\selectfont GERARDO\hspace{0.3em}TOLE\hspace{0.3em}\\ GALVIS\\}, professorwidth={0.33}, type={OB} }
+
+% --- CIENCIAS DE LA COMPUTACIÓN I ---
+\event{ name={CIENCIAS DE LA\\[-3pt]COMPUTACIÓN I}, group={020-87}, code={423}, credits={III}, day={\MA}, start={12}, dur={2}, place={{\fontsize{7pt}{8pt}\selectfont FICC - ADMINISTRATIVO }\\[-5.5pt] {\fontsize{6pt}{7pt}\selectfont SALA ESPECIALIZADA 403}}, color={CafeRohan}, logic={B}, professor={\fontsize{5pt}{6pt}\selectfont CARLOS\hspace{0.3em}ANDRÉS\hspace{0.3em}\\ SIERRA\hspace{0.3em}VIRGUEZ\\}, professorwidth={0.37}, type={OB} }
+
+\event{ name={CIENCIAS DE LA\\[-3pt]COMPUTACIÓN I}, group={020-87}, code={423}, credits={III}, day={\JU}, start={12}, dur={2}, place={FICC - SABIO CALDAS \\[-5.5pt] {\fontsize{6pt}{7pt}\selectfont SALA INFORMÁTICA 707}}, color={CafeRohan}, logic={B}, professor={\fontsize{5pt}{6pt}\selectfont CARLOS\hspace{0.3em}ANDRÉS\hspace{0.3em}\\ SIERRA\hspace{0.3em}VIRGUEZ\\}, professorwidth={0.37}, type={OB} }
+
+\event{ name={CIENCIAS DE LA\\[-3pt]COMPUTACIÓN I}, group={020-87}, code={423}, credits={III}, day={\SA}, start={8}, dur={2}, place={FICC - SABIO CALDAS \\[-5.5pt] {\fontsize{6pt}{7pt}\selectfont SALA INFORMÁTICA 707}}, color={CafeRohan}, logic={B}, professor={\fontsize{5pt}{6pt}\selectfont CARLOS\hspace{0.3em}ANDRÉS\hspace{0.3em}\\ SIERRA\hspace{0.3em}VIRGUEZ\\}, professorwidth={0.37}, type={OB} }
+
+% --- MATEMÁTICAS DISCRETAS ---
+\event{ name={MATEMÁTICAS\\[-3pt]DISCRETAS}, group={020-74}, code={26130}, credits={II}, day={\MI}, start={18}, dur={2}, place={FICC - SABIO CALDAS \\[-4.5pt] AULA 202}, color={PurpuraGondor}, logic={B}, professor={\fontsize{5pt}{6pt}\selectfont LUIS\hspace{0.3em}ALBERTO\hspace{0.3em}\\ LOZANO\hspace{0.3em}LUNA\\}, professorwidth={0.37}, type={OB} }
+
+\event{ name={MATEMÁTICAS\\[-3pt]DISCRETAS}, group={020-74}, code={26130}, credits={II}, day={\VI}, start={18}, dur={2}, place={FICC - SABIO CALDAS \\[-4.5pt] AULA 202}, color={PurpuraGondor}, logic={B}, professor={\fontsize{5pt}{6pt}\selectfont LUIS\hspace{0.3em}ALBERTO\hspace{0.3em}\\ LOZANO\hspace{0.3em}LUNA\\}, professorwidth={0.37}, type={OB} }
+
+% --- ARQUITECTURA DE COMPUTADORES ---
+\event{ name={ARQUITECTURA DE\\[-3pt]COMPUTADORES}, group={020-72}, code={26131}, credits={III}, day={\MI}, start={16}, dur={2}, place={FICC - SABIO CALDAS \\[-5.5pt] {\fontsize{6pt}{7pt}\selectfont SALA INFORMÁTICA 702}}, color={BosqueComarca}, logic={B}, professor={\fontsize{5pt}{6pt}\selectfont JOSÉ\hspace{0.3em}MARTÍN\hspace{0.3em}\\ DELGADO\hspace{0.3em}GARCÍA\\}, professorwidth={0.43}, type={OB} }
+
+\event{ name={ARQUITECTURA DE\\[-3pt]COMPUTADORES}, group={020-72}, code={26131}, credits={III}, day={\JU}, start={16}, dur={2}, place={FICC - SABIO CALDAS \\[-5.5pt] {\fontsize{6pt}{7pt}\selectfont SALA INFORMÁTICA 502}}, color={BosqueComarca}, logic={B}, professor={\fontsize{5pt}{6pt}\selectfont JOSÉ\hspace{0.3em}MARTÍN\hspace{0.3em}\\ DELGADO\hspace{0.3em}GARCÍA\\}, professorwidth={0.43}, type={OB} }
+
+\event{ name={ARQUITECTURA DE\\[-3pt]COMPUTADORES}, group={020-72}, code={26131}, credits={III}, day={\VI}, start={16}, dur={2}, place={FICC - SABIO CALDAS \\[-5.5pt] {\fontsize{6pt}{7pt}\selectfont SALA INFORMÁTICA 504}}, color={BosqueComarca}, logic={B}, professor={\fontsize{5pt}{6pt}\selectfont JOSÉ\hspace{0.3em}MARTÍN\hspace{0.3em}\\ DELGADO\hspace{0.3em}GARCÍA\\}, professorwidth={0.43}, type={OB} }
+
+% --- MÉTODOS NUMÉRICOS ---
+\event{ name={MÉTODOS\\[-3pt]NUMÉRICOS}, group={020-82}, code={26135}, credits={II}, day={\MI}, start={14}, dur={2}, place={ ECCI \\[-4.5pt] {\fontsize{9pt}{11pt}\selectfont SALA SISTEMAS 803}}, color={OcreLothlorien}, logic={B}, professor={\fontsize{5pt}{6pt}\selectfont DIEGO\hspace{0.3em}ALBERTO\hspace{0.3em}\\ CHITIVA\hspace{0.3em}HUERTAS\\}, professorwidth={0.43}, type={OB} }
+
+\event{ name={MÉTODOS\\[-3pt]NUMÉRICOS}, group={020-82}, code={26135}, credits={II}, day={\VI}, start={14}, dur={2}, place={ FMCT - CALLE 34 \\[-4.5pt] AULA 402}, color={OcreLothlorien}, logic={B}, professor={\fontsize{5pt}{6pt}\selectfont DIEGO\hspace{0.3em}ALBERTO\hspace{0.3em}\\ CHITIVA\hspace{0.3em}HUERTAS\\}, professorwidth={0.43}, type={OB} }
+
+% --- MODELOS DE PROGRAMACIÓN ---
+\event{ name={MODELOS DE\\[-3pt]PROGRAMACIÓN}, group={020-81}, code={26137}, credits={III}, day={\LU}, start={8}, dur={2}, place={FICC - SABIO CALDAS \\[-5.5pt] {\fontsize{6pt}{7pt}\selectfont SALA INFORMÁTICA 504}}, color={IndigoLothlorien}, logic={B}, professor={\fontsize{5pt}{6pt}\selectfont JOSÉ\hspace{0.3em}JOAQUÍN\hspace{0.3em}\\ BOCANEGRA\hspace{0.3em}GARCÍA\\}, professorwidth={0.47}, type={OB} }
+
+\event{ name={MODELOS DE\\[-3pt]PROGRAMACIÓN}, group={020-81}, code={26137}, credits={III}, day={\MI}, start={8}, dur={2}, place={FICC - SABIO CALDAS \\[-5.5pt] {\fontsize{6pt}{7pt}\selectfont SALA INFORMÁTICA 504}}, color={IndigoLothlorien}, logic={B}, professor={\fontsize{5pt}{6pt}\selectfont JOSÉ\hspace{0.3em}JOAQUÍN\hspace{0.3em}\\ BOCANEGRA\hspace{0.3em}GARCÍA\\}, professorwidth={0.47}, type={OB} }
+
+\event{ name={MODELOS DE\\[-3pt]PROGRAMACIÓN}, group={020-81}, code={26137}, credits={III}, day={\JU}, start={8}, dur={2}, place={ECCI \\[-4.5pt] {\fontsize{9pt}{11pt}\selectfont AULA DE SISTEMAS 802}}, color={IndigoLothlorien}, logic={B}, professor={\fontsize{5pt}{6pt}\selectfont JOSÉ\hspace{0.3em}JOAQUÍN\hspace{0.3em}\\ BOCANEGRA\hspace{0.3em}GARCÍA\\}, professorwidth={0.47}, type={OB} }
+
+% --- TUTORÍA ---
+\simpleevent{ name={TUTORÍA}, day={\MA}, start={8}, dur={2}, place={FICC - SABIO CALDAS\\[-4pt]SALONES DISPONIBLES}, color={VerdeRivendel}, logic={B}}
+
+\end{tikzpicture}
+\vfill
+\end{document}
