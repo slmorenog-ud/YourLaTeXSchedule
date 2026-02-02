@@ -33,67 +33,67 @@ services:
       
       # Function to compile a single schedule
       compile_schedule() {
-        local schedule=\$1
-        local tex_file=\"\${schedule}.tex\"
+        local schedule=$$1
+        local tex_file="$${schedule}.tex"
         
-        if [ ! -f \"\$tex_file\" ]; then
-          echo \"❌ Error: \$tex_file not found in Schedules/\"
+        if [ ! -f "$$tex_file" ]; then
+          echo "Error: $$tex_file not found in Schedules/"
           return 1
         fi
         
-        echo \"\"
-        echo \"📝 Compiling \$tex_file...\"
-        echo \"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\"
+        echo ""
+        echo "Compiling $$tex_file..."
+        echo "========================================"
         
         # Compile with lualatex
-        if lualatex -interaction=nonstopmode -halt-on-error \"\$tex_file\"; then
-          echo \"✅ Successfully compiled \$schedule.pdf\"
+        if lualatex -interaction=nonstopmode -halt-on-error "$$tex_file"; then
+          echo "Successfully compiled $$schedule.pdf"
           
           # Move auxiliary files to build/
           for ext in aux log fls fdb_latexmk; do
-            [ -f \"\${schedule}.\$ext\" ] && mv -f \"\${schedule}.\$ext\" ../build/ || true
+            [ -f "$${schedule}.$$ext" ] && mv -f "$${schedule}.$$ext" ../build/ || true
           done
           [ -f missfont.log ] && mv -f missfont.log ../build/ || true
           
           return 0
         else
-          echo \"❌ Failed to compile \$tex_file\"
+          echo "Failed to compile $$tex_file"
           # Still move logs for debugging
-          [ -f \"\${schedule}.log\" ] && mv -f \"\${schedule}.log\" ../build/ || true
+          [ -f "$${schedule}.log" ] && mv -f "$${schedule}.log" ../build/ || true
           return 1
         fi
       }
       
       # Main compilation logic
-      if [ -n \"\$SCHEDULES\" ]; then
+      if [ -n "$$SCHEDULES" ]; then
         # Compile multiple schedules
-        echo \"📚 Batch compilation mode: \$SCHEDULES\"
-        IFS=',' read -ra SCHEDULE_ARRAY <<< \"\$SCHEDULES\"
+        echo "Batch compilation mode: $$SCHEDULES"
+        IFS=',' read -ra SCHEDULE_ARRAY <<< "$$SCHEDULES"
         
         success_count=0
         fail_count=0
         
-        for schedule in \"\${SCHEDULE_ARRAY[@]}\"; do
+        for schedule in "$${SCHEDULE_ARRAY[@]}"; do
           # Trim whitespace
-          schedule=\$(echo \"\$schedule\" | xargs)
+          schedule=$$(echo "$$schedule" | xargs)
           
-          if compile_schedule \"\$schedule\"; then
-            success_count=\$((success_count + 1))
+          if compile_schedule "$$schedule"; then
+            success_count=$$((success_count + 1))
           else
-            fail_count=\$((fail_count + 1))
+            fail_count=$$((fail_count + 1))
           fi
         done
         
-        echo \"\"
-        echo \"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\"
-        echo \"📊 Compilation Summary:\"
-        echo \"   ✅ Successful: \$success_count\"
-        echo \"   ❌ Failed: \$fail_count\"
+        echo ""
+        echo "========================================"
+        echo "Compilation Summary:"
+        echo "   Successful: $$success_count"
+        echo "   Failed: $$fail_count"
         
-        [ \$fail_count -eq 0 ] && exit 0 || exit 1
+        [ $$fail_count -eq 0 ] && exit 0 || exit 1
       else
         # Compile single schedule
-        echo \"📄 Single compilation mode: \$SCHEDULE\"
-        compile_schedule \"\$SCHEDULE\"
+        echo "Single compilation mode: $$SCHEDULE"
+        compile_schedule "$$SCHEDULE"
       fi
       "
