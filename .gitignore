@@ -1,0 +1,20 @@
+# Archivos generados por LaTeX
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.pdf
+test*
+
+# Carpeta de compilación
+build/
+
+# Excepto el PDF final del horario
+!horario.pdf
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db

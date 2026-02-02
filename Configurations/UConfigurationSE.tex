@@ -1,0 +1,357 @@
+%----------------------------------------------------------------------------------------
+%	PAQUETES Y CONFIGURACIÓN GENERAL
+%----------------------------------------------------------------------------------------
+\usepackage{xcolor}
+\usepackage[c4paper,left=1cm,right=1cm,top=1cm,bottom=1cm,landscape]{geometry}
+\usepackage{fontspec}
+\usepackage[spanish]{babel}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{xfp}
+\usepackage{keyval}
+\usepackage{etoolbox}
+\usepackage{expl3}
+
+% Fuente principal
+\setmainfont{Source Sans Pro}
+
+%----------------------------------------------------------------------------------------
+%	DEFINICIÓN DE COLORES (PALETAS BÁSICAS + ESDLA)
+%----------------------------------------------------------------------------------------
+
+% Paleta Básica Original
+\definecolor{Rojo}{HTML}{ffb3ba}
+\definecolor{Amarillo}{HTML}{ffffb3}
+\definecolor{Verde}{HTML}{b3ffb3}
+\definecolor{Azul}{HTML}{b3ccff}
+\definecolor{PastelOliva}{HTML}{d1e0a3}
+\definecolor{Rosa}{HTML}{ffb3ff}
+\definecolor{Naranja}{HTML}{ffcc99}
+\definecolor{Lila}{HTML}{d1c4e9}
+\definecolor{PastelTurquesa}{HTML}{a2d5c6}
+\definecolor{Violeta}{HTML}{dfb3ff}
+
+% --- RIVENDEL (IMLADRIS) ---
+\definecolor{DoradoRivendel}{HTML}{B8860B}   % DarkGoldenrod
+\definecolor{BeigeRivendel}{HTML}{F5F5DC}    % Beige
+\definecolor{GrisRivendel}{HTML}{708090}     % SlateGray
+\definecolor{GranateRivendel}{HTML}{800020}  % Maroon
+\definecolor{TurquesaRivendel}{HTML}{00CED1} % DarkTurquoise
+\definecolor{VerdeRivendel}{HTML}{2E8B57}    % SeaGreen
+\definecolor{BronceRivendel}{HTML}{CD7F32}   % Peru
+\definecolor{LavandaRivendel}{HTML}{E6E6FA}  % Lavender
+
+% --- LA COMARCA ---
+\definecolor{OlivaComarca}{HTML}{6A8E23}    % Olive Drab
+\definecolor{DoradoComarca}{HTML}{E38826}   % Goldenrod
+\definecolor{MarronComarca}{HTML}{5D4037}   % Brownish
+\definecolor{TrigoComarca}{HTML}{F5DEB3}    % Wheat
+\definecolor{RosaComarca}{HTML}{BC8F8F}     % Rosy Brown
+\definecolor{CieloComarca}{HTML}{87CEEB}    % Sky Blue
+\definecolor{BosqueComarca}{HTML}{556B2F}   % Dark Olive Green
+\definecolor{TejaComarca}{HTML}{D2691E}     % Chocolate
+
+% --- LOTHLÓRIEN ---
+\definecolor{OcreLothlorien}{HTML}{BF930D}     % Goldenrod
+\definecolor{PlataLothlorien}{HTML}{C0C0C0}    % Silver
+\definecolor{CianLothlorien}{HTML}{E0FFFF}     % Light Cyan
+\definecolor{SalviaLothlorien}{HTML}{8FBC8F}   % Dark Sea Green
+\definecolor{NubeLothlorien}{HTML}{F0F8FF}     % Alice Blue
+\definecolor{BronceLothlorien}{HTML}{CD853F}   % Peru
+\definecolor{IndigoLothlorien}{HTML}{483D8B}   % Dark Slate Blue
+\definecolor{AceroLothlorien}{HTML}{4682B4}    % Steel Blue
+
+% --- ROHAN ---
+\definecolor{VerdeRohan}{HTML}{688E23}      % Olive Drab
+\definecolor{PajaRohan}{HTML}{EEE8AA}       % Pale Goldenrod
+\definecolor{CafeRohan}{HTML}{8B4513}       % Saddle Brown
+\definecolor{TierraRohan}{HTML}{A0522D}     % Sienna
+\definecolor{NieveRohan}{HTML}{FFFAFA}      % Snow
+\definecolor{PizarraRohan}{HTML}{778899}    % Light Slate Gray
+\definecolor{VinoRohan}{HTML}{880000}       % Maroon
+\definecolor{GrisRohan}{HTML}{696969}       % Dim Gray
+
+% --- GONDOR ---
+\definecolor{FantasmaGondor}{HTML}{F8F8FF}   % Ghost White
+\definecolor{OscuroGondor}{HTML}{2F4F4F}     % Dark Slate Gray
+\definecolor{PlataGondor}{HTML}{DCDCDC}      % Gainsboro
+\definecolor{AzulGondor}{HTML}{191970}       % Midnight Blue
+\definecolor{NegroGondor}{HTML}{000000}      % Black
+\definecolor{GrisGondor}{HTML}{808080}       % Gray
+\definecolor{FuegoGondor}{HTML}{FF4500}      % Orange Red
+\definecolor{PurpuraGondor}{HTML}{4B0082}    % Indigo
+
+% --- MORDOR ---
+\definecolor{CarbonMordor}{HTML}{1C1C1C}     % Very Dark Gray
+\definecolor{RojoMordor}{HTML}{FF0000}       % Red
+\definecolor{CenizaMordor}{HTML}{696969}     % Dim Gray
+\definecolor{AcidoMordor}{HTML}{9ACD32}      % Yellow Green
+\definecolor{SangreMordor}{HTML}{8B0000}     % Dark Red
+\definecolor{MagmaMordor}{HTML}{FF8C00}      % Dark Orange
+\definecolor{PetroleoMordor}{HTML}{2F4F4F}   % Dark Slate Gray
+\definecolor{SombraMordor}{HTML}{301934}     % Dark Purple
+
+%----------------------------------------------------------------------------------------
+%	PARÁMETROS DE LA CUADRÍCULA
+%----------------------------------------------------------------------------------------
+\def\LU{1}\def\MA{2}\def\MI{3}\def\JU{4}\def\VI{5}\def\SA{6}
+\def\NJ{6}
+\def\hi{5}
+\def\hf{21}
+\def\H{19.5}
+\def\D{30.0}
+\def\h{1.0}
+\def\d{2.0}
+\newcommand\Days{\textbf{Lunes}, \textbf{Martes}, \textbf{Miércoles}, \textbf{Jueves}, \textbf{Viernes}, \textbf{Sábado}}
+
+\def\dd{\fpeval{(\D-\d)/\NJ}}
+\def\Dh{\fpeval{\hf-\hi}}
+\def\dh{\fpeval{(\H-\h)/\Dh}}
+
+% Factores visuales
+\def\tagWidthFactorTopLeft{0.22}
+\def\tagWidthFactorBottomLeft{0.45}
+\def\tagWidthFactorRight{0.11}
+\def\tagWidthFactorRightMiddle{0.08}
+\def\tagHeightFactorTopLeft{0.15}
+\def\tagHeightFactorBottomLeft{0.22}
+\def\tagHeightFactorRight{0.16}
+\def\tagHeightFactorRightMiddle{0.30}
+\def\bandFactor{0.06}
+\def\radioGrande{0.21}
+\def\radioPequeno{0.105}
+\def\timeTagXOffset{0.05}
+
+%----------------------------------------------------------------------------------------
+%	COMANDO PARA DIBUJAR LA CUADRÍCULA (FONDO)
+%----------------------------------------------------------------------------------------
+\newcommand{\DibujarCuadricula}{
+    \draw [draw=black, rounded corners=10pt] (0.0,0.0) rectangle (30.7,19.0);
+
+    \def\fin{\fpeval{\Dh-1}};
+    \foreach \i in {1,...,\fin}{
+      \def\y{\fpeval{\i*\dh}} ;
+      \def\heure{\fpeval{round(\hf-\i,0)}};
+      \def\heuremod{\fpeval{\heure > 12 ? \heure - 12 : \heure}};
+      \def\ampm{\ifcase\fpeval{\heure<12}PM\or AM\fi};
+      \def\x{\fpeval{\d/2.0}}
+      \node at (\x,\y) {\fontsize{14}{18}\selectfont\heuremod~\ampm};
+      \draw[dashed](\d, \y)--(30.0, \y);
+    };
+
+    \foreach \j [count=\i] in \Days{
+      \def\y{\fpeval{\H-0.5*\h-0.8}};
+      \def\x{\fpeval{\d + (\i - 0.5) * \dd}};
+      \node at (\x , \y) {{\fontsize{20}{22}\selectfont\bfseries \j}};
+    };
+}
+
+%----------------------------------------------------------------------------------------
+%	COMANDOS DE TÍTULO
+%----------------------------------------------------------------------------------------
+\ExplSyntaxOn
+\NewDocumentCommand{\medstyledtitle}{m}
+{
+  \group_begin:
+  \str_map_inline:nn {#1} { \__medstyledtitle_process:n {##1} }
+  \group_end:
+}
+\cs_new_protected:Nn \__medstyledtitle_process:n
+{
+  \str_case_e:nnF { \tl_upper_case:n {#1} }
+  {
+    {A}{\textbf{\fontsize{24pt}{26pt}\selectfont A}} {B}{\textbf{\fontsize{24pt}{26pt}\selectfont B}} {C}{\textbf{\fontsize{24pt}{26pt}\selectfont C}} 
+    {D}{\textbf{\fontsize{24pt}{26pt}\selectfont D}} {E}{\textbf{\fontsize{24pt}{26pt}\selectfont E}} {F}{\textbf{\fontsize{24pt}{26pt}\selectfont F}} 
+    {G}{\textbf{\fontsize{24pt}{26pt}\selectfont G}} {H}{\textbf{\fontsize{24pt}{26pt}\selectfont H}} {I}{\textbf{\fontsize{24pt}{26pt}\selectfont I}} 
+    {J}{\textbf{\fontsize{24pt}{26pt}\selectfont J}} {K}{\textbf{\fontsize{24pt}{26pt}\selectfont K}} {L}{\textbf{\fontsize{24pt}{26pt}\selectfont L}} 
+    {M}{\textbf{\fontsize{24pt}{26pt}\selectfont M}} {N}{\textbf{\fontsize{24pt}{26pt}\selectfont N}} {O}{\textbf{\fontsize{24pt}{26pt}\selectfont O}} 
+    {P}{\textbf{\fontsize{24pt}{26pt}\selectfont P}} {Q}{\textbf{\fontsize{24pt}{26pt}\selectfont Q}} {R}{\textbf{\fontsize{24pt}{26pt}\selectfont R}} 
+    {S}{\textbf{\fontsize{24pt}{26pt}\selectfont S}} {T}{\textbf{\fontsize{24pt}{26pt}\selectfont T}} {U}{\textbf{\fontsize{24pt}{26pt}\selectfont U}} 
+    {V}{\textbf{\fontsize{24pt}{26pt}\selectfont V}} {W}{\textbf{\fontsize{24pt}{26pt}\selectfont W}} {X}{\textbf{\fontsize{24pt}{26pt}\selectfont X}} 
+    {Y}{\textbf{\fontsize{24pt}{26pt}\selectfont Y}} {Z}{\textbf{\fontsize{24pt}{26pt}\selectfont Z}}
+    {Á}{\textbf{\fontsize{24pt}{26pt}\selectfont Á}} {É}{\textbf{\fontsize{24pt}{26pt}\selectfont É}} {Í}{\textbf{\fontsize{24pt}{26pt}\selectfont Í}} 
+    {Ó}{\textbf{\fontsize{24pt}{26pt}\selectfont Ó}} {Ú}{\textbf{\fontsize{24pt}{26pt}\selectfont Ú}} {Ñ}{\textbf{\fontsize{24pt}{26pt}\selectfont Ñ}}
+    {0}{\textbf{\fontsize{24pt}{26pt}\selectfont 0}} {1}{\textbf{\fontsize{24pt}{26pt}\selectfont 1}} {2}{\textbf{\fontsize{24pt}{26pt}\selectfont 2}} 
+    {3}{\textbf{\fontsize{24pt}{26pt}\selectfont 3}} {4}{\textbf{\fontsize{24pt}{26pt}\selectfont 4}} {5}{\textbf{\fontsize{24pt}{26pt}\selectfont 5}} 
+    {6}{\textbf{\fontsize{24pt}{26pt}\selectfont 6}} {7}{\textbf{\fontsize{24pt}{26pt}\selectfont 7}} {8}{\textbf{\fontsize{24pt}{26pt}\selectfont 8}} 
+    {9}{\textbf{\fontsize{24pt}{26pt}\selectfont 9}} { }{\hspace{0.45em}} {:}{\fontsize{17pt}{19pt}\selectfont :}
+  }
+  {\fontsize{17pt}{19pt}\selectfont #1}
+}
+
+\NewDocumentCommand{\smallmedstyledtitle}{m}
+{
+  \group_begin:
+  \str_map_inline:nn {#1} { \__smallmedstyledtitle_process:n {##1} }
+  \group_end:
+}
+\cs_new_protected:Nn \__smallmedstyledtitle_process:n
+{
+  \str_case_e:nnF { \tl_upper_case:n {#1} }
+  {
+    {A}{\textbf{\fontsize{19pt}{21pt}\selectfont A}} {B}{\textbf{\fontsize{19pt}{21pt}\selectfont B}} {C}{\textbf{\fontsize{19pt}{21pt}\selectfont C}} 
+    {D}{\textbf{\fontsize{19pt}{21pt}\selectfont D}} {E}{\textbf{\fontsize{19pt}{21pt}\selectfont E}} {F}{\textbf{\fontsize{19pt}{21pt}\selectfont F}} 
+    {G}{\textbf{\fontsize{19pt}{21pt}\selectfont G}} {H}{\textbf{\fontsize{19pt}{21pt}\selectfont H}} {I}{\textbf{\fontsize{19pt}{21pt}\selectfont I}} 
+    {J}{\textbf{\fontsize{19pt}{21pt}\selectfont J}} {K}{\textbf{\fontsize{19pt}{21pt}\selectfont K}} {L}{\textbf{\fontsize{19pt}{21pt}\selectfont L}} 
+    {M}{\textbf{\fontsize{19pt}{21pt}\selectfont M}} {N}{\textbf{\fontsize{19pt}{21pt}\selectfont N}} {O}{\textbf{\fontsize{19pt}{21pt}\selectfont O}} 
+    {P}{\textbf{\fontsize{19pt}{21pt}\selectfont P}} {Q}{\textbf{\fontsize{19pt}{21pt}\selectfont Q}} {R}{\textbf{\fontsize{19pt}{21pt}\selectfont R}} 
+    {S}{\textbf{\fontsize{19pt}{21pt}\selectfont S}} {T}{\textbf{\fontsize{19pt}{21pt}\selectfont T}} {U}{\textbf{\fontsize{19pt}{21pt}\selectfont U}} 
+    {V}{\textbf{\fontsize{19pt}{21pt}\selectfont V}} {W}{\textbf{\fontsize{19pt}{21pt}\selectfont W}} {X}{\textbf{\fontsize{19pt}{21pt}\selectfont X}} 
+    {Y}{\textbf{\fontsize{19pt}{21pt}\selectfont Y}} {Z}{\textbf{\fontsize{19pt}{21pt}\selectfont Z}}
+    {Á}{\textbf{\fontsize{19pt}{21pt}\selectfont Á}} {É}{\textbf{\fontsize{19pt}{21pt}\selectfont É}} {Í}{\textbf{\fontsize{19pt}{21pt}\selectfont Í}} 
+    {Ó}{\textbf{\fontsize{19pt}{21pt}\selectfont Ó}} {Ú}{\textbf{\fontsize{19pt}{21pt}\selectfont Ú}} {Ñ}{\textbf{\fontsize{19pt}{21pt}\selectfont Ñ}}
+    {0}{\textbf{\fontsize{19pt}{21pt}\selectfont 0}} {1}{\textbf{\fontsize{19pt}{21pt}\selectfont 1}} {2}{\textbf{\fontsize{19pt}{21pt}\selectfont 2}} 
+    {3}{\textbf{\fontsize{19pt}{21pt}\selectfont 3}} {4}{\textbf{\fontsize{19pt}{21pt}\selectfont 4}} {5}{\textbf{\fontsize{19pt}{21pt}\selectfont 5}} 
+    {6}{\textbf{\fontsize{19pt}{21pt}\selectfont 6}} {7}{\textbf{\fontsize{19pt}{21pt}\selectfont 7}} {8}{\textbf{\fontsize{19pt}{21pt}\selectfont 8}} 
+    {9}{\textbf{\fontsize{19pt}{21pt}\selectfont 9}} { }{\hspace{0.45em}} {:}{\fontsize{17pt}{19pt}\selectfont :}
+  }
+  {\fontsize{17pt}{19pt}\selectfont #1}
+}
+\ExplSyntaxOff
+
+%----------------------------------------------------------------------------------------
+%	LÓGICA DE EVENTOS HÍBRIDA (A y B)
+%----------------------------------------------------------------------------------------
+\makeatletter
+\define@key{event}{name}{\def\evName{#1}}
+\define@key{event}{group}{\def\evGroup{#1}}
+\define@key{event}{code}{\def\evCode{#1}}
+\define@key{event}{credits}{\def\evCredits{#1}}
+\define@key{event}{day}{\def\evDay{#1}}
+\define@key{event}{start}{\def\evStart{#1}}
+\define@key{event}{dur}{\def\evDur{#1}}
+\define@key{event}{place}{\def\evPlace{#1}}
+\define@key{event}{color}{\def\evColor{#1}}
+\define@key{event}{professor}{\def\evProfessor{#1}}
+\define@key{event}{professorwidth}{\def\evProfessorWidth{#1}}
+\define@key{event}{type}{\def\evType{#1}}
+\define@key{event}{textcolor}{\def\evTextColor{#1}}
+\define@key{event}{timeyoffset}{\def\evTimeYOffset{#1}}
+\define@key{event}{logic}{\def\evLogic{#1}} % NUEVA LLAVE: logic (A o B)
+
+\newcommand{\ifhasvalue}[1]{%
+  \ifcsdef{#1}{%
+    \ifstrempty{\csuse{#1}}{\expandafter\iffalse}{\ifstrequal{\csuse{#1}}{NULL}{\expandafter\iffalse}{\expandafter\iftrue}}%
+  }{\expandafter\iffalse}%
+}
+
+\newcommand{\event}[1]{%
+    \def\evTextColor{black}
+    \def\evTimeYOffset{0}
+    \def\evProfessorWidth{\tagWidthFactorBottomLeft}
+    \def\evLogic{A} % Por defecto usamos la lógica A (clara)
+    \setkeys{event}{#1}
+    
+    \edef\x{\fpeval{\d + (\evDay - 1) * \dd}}%
+    \edef\xx{\fpeval{\d + \evDay * \dd}}%
+    \edef\yy{\fpeval{(\hf - \evStart) * \dh}}%
+    \edef\y{\fpeval{(\hf - (\evStart + \evDur)) * \dh}}%
+    \edef\width{\fpeval{\xx - \x}}%
+    \edef\height{\fpeval{\yy - \y}}%
+    \edef\TWcm{\fpeval{\width - 0.5}}%
+
+    % --- SELECTOR DE LÓGICA ---
+    \ifdefstring{\evLogic}{B}{%
+        % LÓGICA B (Para colores OSCUROS/INTENSOS como GranateRivendel)
+        % \DARK es el color exacto que pusiste.
+        % El fondo es ese color pero al 20% (pastel).
+        \edef\DARK{\evColor}
+        \edef\FILLCOLOR{\evColor!20!white}
+    }{%
+        % LÓGICA A (Para colores CLAROS como Amarillo, Rojo pastel)
+        % \DARK es el color oscurecido al 50%.
+        % El fondo es el color exacto que pusiste.
+        \edef\DARK{\evColor!50!black}
+        \edef\FILLCOLOR{\evColor}
+    }
+
+    % Usamos \FILLCOLOR para el fondo y \DARK para el borde
+    \filldraw[fill=\FILLCOLOR, draw=\DARK, line width=1pt, rounded corners=6pt] (\x,\y) rectangle (\xx,\yy);
+    
+    \begin{scope}
+        \path[clip, rounded corners=6pt] (\x,\y) rectangle (\xx,\yy);
+        
+        \edef\tagWTL{\fpeval{\tagWidthFactorTopLeft * \width}}%
+        \edef\tagWBL{\fpeval{\evProfessorWidth * \width}}%
+        \edef\tagWR{\fpeval{\tagWidthFactorRight * \width}}%
+        \edef\tagWRM{\fpeval{\tagWidthFactorRightMiddle * \width}}%
+        \edef\tagHTL{\fpeval{\tagHeightFactorTopLeft * \height}}%
+        \edef\tagHBL{\fpeval{\tagHeightFactorBottomLeft * \height}}%
+        \edef\tagHR{\fpeval{\tagHeightFactorRight * \height}}%
+        \edef\tagHRM{\fpeval{\tagHeightFactorRightMiddle * \height}}%
+        \edef\bandH{\fpeval{\bandFactor * \height}}%
+        \edef\rG{\radioGrande}%
+        \edef\rS{\radioPequeno}%
+        
+        \edef\tagBottomTop{\fpeval{\yy - \tagHTL}}%
+        \edef\tagBottomBottom{\fpeval{\yy - \tagHR}}%
+        \edef\bandLeftTop{\fpeval{\x + \tagWTL}}%
+        \edef\bandRight{\fpeval{\xx - \tagWR}}%
+        
+        % Las franjas siempre usan \DARK
+        \fill[\DARK] (\x,\yy) rectangle (\xx,\fpeval{\yy - \bandH});
+        \edef\tagTopTop{\fpeval{\y + \tagHR}}%
+        \edef\tagTopBottom{\fpeval{\y + \tagHBL}}%
+        \edef\bandLeftBottom{\fpeval{\x + \tagWBL}}%
+        \fill[\DARK] (\x,\y) rectangle (\xx,\fpeval{\y + \bandH});
+
+        \ifhasvalue{evGroup}{\fill[\DARK](\fpeval{\bandLeftTop},\yy) -- (\fpeval{\x + \rG},\yy) arc (90:180:\rG cm) --(\x,\fpeval{\yy - \rG}) -- (\x,\tagBottomTop) --(\fpeval{\bandLeftTop - \rS},\tagBottomTop) arc (-90:0:\rS cm) --(\fpeval{\bandLeftTop},\fpeval{\tagBottomTop + \rS}) -- cycle; \node[text=white, font=\bfseries\scriptsize, text width=\tagWTL cm, align=center] at (\fpeval{\x + 0.5 * \tagWTL}, \fpeval{0.5*(\yy + \tagBottomTop)}) {\evGroup};}\fi
+        \ifhasvalue{evCredits}{\fill[\DARK](\fpeval{\bandRight},\yy) -- (\fpeval{\xx - \rG},\yy) arc (90:0:\rG cm) --(\xx,\fpeval{\yy - \rG}) -- (\xx,\tagBottomBottom) --(\fpeval{\bandRight + \rS},\tagBottomBottom) arc (-90:-180:\rS cm) --(\fpeval{\bandRight},\fpeval{\tagBottomBottom + \rS}) -- cycle; \node[text=white, font=\bfseries\scriptsize, text width=\tagWR cm, align=center] at (\fpeval{\xx - 0.5 * \tagWR}, \fpeval{0.5*(\yy + \tagBottomBottom)}) {\evCredits};}\fi
+        \ifhasvalue{evCode}{\node[fill=\DARK, text=white, font=\bfseries\scriptsize, rounded corners=2.5pt, inner sep=1.5pt, outer sep=0pt, anchor=north] at (\fpeval{0.5*(\x+\xx)}, \yy) {\evCode};}\fi
+        \ifhasvalue{evProfessor}{\fill[\DARK](\x, \tagTopBottom) -- (\x, \fpeval{\y + \rG}) arc (180:270:\rG cm) --(\fpeval{\bandLeftBottom}, \y) -- (\fpeval{\bandLeftBottom}, \fpeval{\tagTopBottom - \rS}) arc (0:90:\rS cm) -- cycle; \node[text=white, font=\bfseries, text width=\tagWBL cm, align=center, yshift=0.1pt] at (\fpeval{\x + 0.5 * \tagWBL}, \fpeval{0.5*(\y + \tagTopBottom)}) {\evProfessor};}\fi
+        \ifhasvalue{evType}{\fill[\DARK](\xx, \tagTopTop) -- (\xx, \fpeval{\y + \rG}) arc (360:270:\rG cm) --(\fpeval{\bandRight}, \y) -- (\fpeval{\bandRight}, \fpeval{\tagTopTop - \rS}) arc (180:90:\rS cm) -- cycle; \node[text=white, font=\bfseries\scriptsize, text width=\tagWR cm, align=center] at (\fpeval{\xx - 0.5 * \tagWR}, \fpeval{0.5*(\y + \tagTopTop)}) {\evType};}\fi
+        
+        \ifhasvalue{evStart}{
+            \edef\heurestart{\fpeval{round(\evStart,0)}}
+            \edef\heureend{\fpeval{round(\evStart + \evDur,0)}}
+            \edef\heurestartmod{\fpeval{\heurestart > 12 ? \heurestart - 12 : \heurestart}}
+            \edef\heureendmod{\fpeval{\heureend > 12 ? \heureend - 12 : \heureend}}
+            \edef\tagMidY{\fpeval{0.5*(\y+\yy) + \evTimeYOffset}}
+            \edef\tagMidTop{\fpeval{\tagMidY + 0.5*\tagHRM}}
+            \edef\tagMidBottom{\fpeval{\tagMidY - 0.5*\tagHRM}}
+            \edef\tagLeftX{\fpeval{\xx - \tagWRM - \timeTagXOffset}}
+            \edef\tagRightX{\fpeval{\xx - \timeTagXOffset}}
+            
+            \fill[draw=none, fill=\DARK, rounded corners=4pt] 
+                (\tagLeftX, \tagMidBottom) rectangle (\tagRightX, \tagMidTop);
+
+            \node[text=white, font=\bfseries\scriptsize, text width=\tagWRM cm, align=center] at (\fpeval{\tagLeftX + 0.5*\tagWRM}, \tagMidY) {\heurestartmod \\[-1pt] \heureendmod};
+        }\fi
+        
+        \edef\textTop{\fpeval{\yy - \tagHTL + 0.05}}%
+        \edef\textBottom{\fpeval{\y + \tagHBL}}%
+        \node[text=\evTextColor, text width=\TWcm cm, align=center] at (\fpeval{0.5*(\x+\xx)}, \fpeval{0.5*(\textTop+\textBottom)}) {
+            \ifcsdef{evName}{\textbf{\evName}\\[-3pt]}\fi
+            \ifcsdef{evPlace}{\itshape\evPlace}\fi
+        };
+    \end{scope}
+}
+
+\newcommand{\simpleevent}[1]{%
+    \def\evTextColor{black}
+    \def\evLogic{A} % Por defecto A
+    \setkeys{event}{#1}
+    
+    \edef\x{\fpeval{\d + (\evDay - 1) * \dd}}%
+    \edef\xx{\fpeval{\d + \evDay * \dd}}%
+    \edef\yy{\fpeval{(\hf - \evStart) * \dh}}%
+    \edef\y{\fpeval{(\hf - (\evStart + \evDur)) * \dh}}%
+    \edef\width{\fpeval{\xx - \x}}%
+    \edef\TWcm{\fpeval{\width - 0.5}}%
+
+    % SELECTOR DE LÓGICA (Simplificado)
+    \ifdefstring{\evLogic}{B}{%
+        \edef\DARK{\evColor}
+        \edef\FILLCOLOR{\evColor!20!white}
+    }{%
+        \edef\DARK{\evColor!50!black}
+        \edef\FILLCOLOR{\evColor}
+    }
+
+    \filldraw[fill=\FILLCOLOR, draw=\DARK, line width=1pt, rounded corners=6pt] (\x,\y) rectangle (\xx,\yy);
+    \node[text=\evTextColor, text width=\TWcm cm, align=center] at (\fpeval{0.5*(\x+\xx)}, \fpeval{0.5*(\y+\yy)}) {
+        \ifcsdef{evName}{\textbf{\evName}\\[-4pt]}\fi
+        \ifcsdef{evPlace}{\itshape\evPlace}\fi
+    };
+}
+\makeatother

@@ -1,0 +1,22 @@
+services:
+  constructor-horario:
+    image: texlive/texlive:latest
+    container_name: mi_latex_local
+    # Mapeamos la carpeta actual (.) a /workdir dentro del contenedor
+    volumes:
+      - .:/workdir
+    working_dir: /workdir/Schedules
+    # El comando:
+    # 1. Crea carpeta 'build' si no existe
+    # 2. Copia las fuentes TTF al directorio de fuentes del sistema
+    # 3. Actualiza la cache de fuentes
+    # 4. Compila con lualatex desde Schedules/
+    # 5. Mueve archivos auxiliares a build
+    command: >
+      /bin/sh -c "mkdir -p ../build && 
+      mkdir -p ~/.local/share/fonts &&
+      cp -f ../Fonts/*.ttf ~/.local/share/fonts/ &&
+      fc-cache -f -v &&
+      lualatex -interaction=nonstopmode -halt-on-error UScheduleSophie.tex && 
+      mv -f UScheduleSophie.aux UScheduleSophie.log UScheduleSophie.fls UScheduleSophie.fdb_latexmk ../build/ 2>/dev/null || true &&
+      ([ -f missfont.log ] && mv missfont.log ../build/ || true)"

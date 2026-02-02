@@ -1,0 +1,31 @@
+{
+    // Configuración para Code Runner (el triángulo de Play habitual)
+    "code-runner.executorMap": {
+        "tex": "docker compose up",
+        "latex": "docker compose up"
+    },
+    // Configuración para LaTeX Workshop (el botón verde check)
+    "latex-workshop.latex.tools": [
+        {
+            "name": "docker-lualatex",
+            "command": "docker",
+            "args": [
+                "compose",
+                "up"
+            ],
+            "env": {}
+        }
+    ],
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "Docker Build",
+            "tools": [
+                "docker-lualatex"
+            ]
+        }
+    ],
+    "latex-workshop.latex.recipe.default": "Docker Build",
+    // Guardado automático para que Docker siempre vea la última versión al compilar
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 1000
+}

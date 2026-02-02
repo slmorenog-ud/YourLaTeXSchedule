@@ -1,0 +1,95 @@
+﻿\documentclass[extrafontsizes,11pt]{memoir}
+
+% Importamos toda la configuración desde el otro archivo
+\input{../Configurations/ConfigurationTLOTR.tex}
+
+%----------------------------------------------------------------------------------------
+%METADATOS DEL DOCUMENTO
+%----------------------------------------------------------------------------------------
+\title{Horario de Clases Periodo 2026-1}
+\author{You}
+\date{Enero 2026}
+
+%----------------------------------------------------------------------------------------
+%CUERPO DEL DOCUMENTO
+%----------------------------------------------------------------------------------------
+\begin{document}
+\pagenumbering{gobble}
+\centering
+
+\vspace{-2em}%
+  \medstyledtitle{H}%
+  \smallmedstyledtitle{ORARIO}%
+  \hspace{0.45em}%
+  \smallmedstyledtitle{DE}%
+  \hspace{0.45em}%
+  \medstyledtitle{C}%
+  \smallmedstyledtitle{LASES}%
+\linebreak
+{\color{OcreLothlorien}\RingbearerFont\fontsize{18}{22}\selectfont Periodo 2026-1}
+\normalsize 
+\vfill
+
+\begin{tikzpicture}
+% Dibujamos el fondo y la cuadrícula (definido en configuracion.tex)
+\DibujarCuadricula
+
+%----------------------------------------------------------------------------------------
+%EVENTOS DEL HORARIO (¡EDITA AQUÍ!)
+%----------------------------------------------------------------------------------------
+
+% --- CÁLCULO MULTIVARIADO ---
+
+\event{ name={CÁLCULO\\[-3pt]MULTIVARIADO}, group={020-81}, code={16}, credits={III}, day={\LU}, start={6}, dur={2}, place={FICC - SABIO CALDAS \\[-4.5pt] AULA 204}, color={AceroLothlorien}, logic={B}, professor={\fontsize{5pt}{6pt}\selectfont ANDRÉS\hspace{0.3em}LEONARDO\hspace{0.3em}\\ RAMÍREZ\hspace{0.3em}LEAL\\}, professorwidth={0.45}, type={OB} }
+
+\event{ name={CÁLCULO\\[-3pt]MULTIVARIADO}, group={020-81}, code={16}, credits={III}, day={\MI}, start={6}, dur={2}, place={FICC - SABIO CALDAS \\[-4.5pt] AULA 305}, color={AceroLothlorien}, logic={B}, professor={\fontsize{5pt}{6pt}\selectfont ANDRÉS\hspace{0.3em}LEONARDO\hspace{0.3em}\\ RAMÍREZ\hspace{0.3em}LEAL\\}, professorwidth={0.45}, type={OB} }
+
+\event{ name={CÁLCULO\\[-3pt]MULTIVARIADO}, group={020-81}, code={16}, credits={III}, day={\VI}, start={6}, dur={2}, place={FICC - SABIO CALDAS \\[-4.5pt] AULA 307}, color={AceroLothlorien}, logic={B}, professor={\fontsize{5pt}{6pt}\selectfont ANDRÉS\hspace{0.3em}LEONARDO\hspace{0.3em}\\ RAMÍREZ\hspace{0.3em}LEAL\\}, professorwidth={0.45}, type={OB} }
+
+% --- ÉTICA Y BIOÉTICA ---
+
+\event{ name={ÉTICA Y BIOÉTICA}, group={025-62}, code={18}, credits={II}, day={\VI}, start={8}, dur={2}, place={FICC - SABIO CALDAS \\[-3pt] AULA 206}, color={OcreLothlorien}, logic={B}, professor={\fontsize{5pt}{6pt}\selectfont JORGE\hspace{0.3em}IVÁN\hspace{0.3em}\\ PARRA\hspace{0.3em}LONDOÑO\\}, professorwidth={0.43}, type={OC} }
+
+\event{ name={ÉTICA Y BIOÉTICA}, group={025-62}, code={18}, credits={II}, day={\SA}, start={10}, dur={2}, place={FMCT - CALLE 34 \\[-3pt] AULA 201}, color={OcreLothlorien}, logic={B}, professor={\fontsize{5pt}{6pt}\selectfont JORGE\hspace{0.3em}IVÁN\hspace{0.3em}\\ PARRA\hspace{0.3em}LONDOÑO\\}, professorwidth={0.43}, type={OC} }
+
+% --- ECUACIONES DIFERENCIALES ---
+
+\event{ name={ECUACIONES\\[-3pt]DIFERENCIALES}, group={\fontsize{6pt}{7pt}\selectfont 007-743}, code={88}, credits={III}, day={\LU}, start={10}, dur={2}, place={FICC - SABIO CALDAS \\[-4.5pt] AULA 206}, color={BronceLothlorien}, logic={B}, professor={\fontsize{4.5pt}{5.5pt}\selectfont JOSÉ\hspace{0.3em}ULISES\hspace{0.3em}\\ CASTELLANOS\hspace{0.3em}CONTRERA\\}, professorwidth={0.55}, type={OB} }
+
+\event{ name={ECUACIONES\\[-3pt]DIFERENCIALES}, group={\fontsize{6pt}{7pt}\selectfont 007-743}, code={88}, credits={III}, day={\MI}, start={10}, dur={2}, place={FICC - SABIO CALDAS \\[-4.5pt] AULA 311}, color={BronceLothlorien}, logic={B}, professor={\fontsize{4.5pt}{5.5pt}\selectfont JOSÉ\hspace{0.3em}ULISES\hspace{0.3em}\\ CASTELLANOS\hspace{0.3em}CONTRERA\\}, professorwidth={0.55}, type={OB} }
+
+\event{ name={ECUACIONES\\[-3pt]DIFERENCIALES}, group={\fontsize{6pt}{7pt}\selectfont 007-743}, code={88}, credits={III}, day={\VI}, start={12}, dur={2}, place={{\fontsize{7pt}{8pt}\selectfont FICC - ADMINISTRATIVO }\\[-5.5pt] {\fontsize{6pt}{7pt}\selectfont SALA ESPECIALIZADA 401}}, color={BronceLothlorien}, logic={B}, professor={\fontsize{4.5pt}{5.5pt}\selectfont JOSÉ\hspace{0.3em}ULISES \\ \hspace{0.3em}CASTELLANOS\hspace{0.3em}CONTRERA\\}, professorwidth={0.55}, type={OB} }
+
+% --- CIENCIAS DE LA COMPUTACIÓN I ---
+
+\event{ name={CIENCIAS DE LA\\[-3pt]COMPUTACIÓN I}, group={020-84}, code={423}, credits={III}, day={\MA}, start={14}, dur={2}, place={{\fontsize{7pt}{8pt}\selectfont FICC - ADMINISTRATIVO }\\[-5.5pt] {\fontsize{6pt}{7pt}\selectfont SALA ESPECIALIZADA 403}}, color={SalviaLothlorien}, logic={B}, professor={\fontsize{5pt}{6pt}\selectfont JORGE\hspace{0.3em}HERNANDO\hspace{0.3em}\\ MALAVER\hspace{0.3em}PARRA\\}, professorwidth={0.43}, type={OB} }
+
+\event{ name={CIENCIAS DE LA\\[-3pt]COMPUTACIÓN I}, group={020-84}, code={423}, credits={III}, day={\JU}, start={14}, dur={2}, place={FICC - SABIO CALDAS \\[-5.5pt] {\fontsize{6pt}{7pt}\selectfont SALA DE INFORMÁTICA 504}}, color={SalviaLothlorien}, logic={B}, professor={\fontsize{5pt}{6pt}\selectfont JORGE\hspace{0.3em}HERNANDO\hspace{0.3em}\\ MALAVER\hspace{0.3em}PARRA\\}, professorwidth={0.43}, type={OB} }
+
+\event{ name={CIENCIAS DE LA\\[-3pt]COMPUTACIÓN I}, group={020-84}, code={423}, credits={III}, day={\SA}, start={6}, dur={2}, place={FICC - SABIO CALDAS \\[-5.5pt] {\fontsize{6pt}{7pt}\selectfont SALA DE INFORMÁTICA 501}}, color={SalviaLothlorien}, logic={B}, professor={\fontsize{5pt}{6pt}\selectfont JORGE\hspace{0.3em}HERNANDO\hspace{0.3em}\\ MALAVER\hspace{0.3em}PARRA\\}, professorwidth={0.43}, type={OB} }
+
+% --- ANÁLISIS Y DISEÑO DE SISTEMAS ---
+
+\event{ name={ANÁLISIS Y DISEÑO\\[-3pt]DE SISTEMAS}, group={020-82}, code={26133}, credits={II}, day={\MI}, start={14}, dur={2}, place={FICC - SABIO CALDAS \\[-4.5pt] AULA 303}, color={CianLothlorien}, logic={A}, professor={\fontsize{5pt}{6pt}\selectfont SANTIAGO\hspace{0.3em}\\ SALAZAR\hspace{0.3em}FAJARDO\\}, professorwidth={0.43}, type={OB} }
+
+\event{ name={ANÁLISIS Y DISEÑO\\[-3pt]DE SISTEMAS}, group={020-82}, code={26133}, credits={II}, day={\SA}, start={8}, dur={2}, place={FICC - SABIO CALDAS \\[-4.5pt] AULA 205}, color={CianLothlorien}, logic={A}, professor={\fontsize{5pt}{6pt}\selectfont SANTIAGO\hspace{0.3em}\\ SALAZAR\hspace{0.3em}FAJARDO\\}, professorwidth={0.43}, type={OB} }
+
+% --- MODELOS DE PROGRAMACIÓN ---
+
+\event{ name={MODELOS DE\\[-3pt]PROGRAMACIÓN}, group={020-84}, code={26137}, credits={III}, day={\LU}, start={12}, dur={2}, place={FMCT - CALLE 34 \\[-4.5pt] AULA 402}, color={IndigoLothlorien}, logic={B}, professor={\fontsize{5pt}{6pt}\selectfont JULIO\hspace{0.3em}BARÓN \\ \hspace{0.3em}VELANDIA\\}, professorwidth={0.37}, type={OB} }
+
+\event{ name={MODELOS DE\\[-3pt]PROGRAMACIÓN}, group={020-84}, code={26137}, credits={III}, day={\MA}, start={12}, dur={2}, place={FICC - SABIO CALDAS \\[-5.5pt] {\fontsize{6pt}{7pt}\selectfont SALA DE INFORMÁTICA 504}}, color={IndigoLothlorien}, logic={B}, professor={\fontsize{5pt}{6pt}\selectfont JULIO\hspace{0.3em}BARÓN \\ \hspace{0.3em}VELANDIA\\}, professorwidth={0.35}, type={OB} }
+
+\event{ name={MODELOS DE\\[-3pt]PROGRAMACIÓN}, group={020-84}, code={26137}, credits={III}, day={\JU}, start={12}, dur={2}, place={FICC - SABIO CALDAS \\[-5.5pt] {\fontsize{6pt}{7pt}\selectfont SALA DE INFORMÁTICA 507}}, color={IndigoLothlorien}, logic={B}, professor={\fontsize{5pt}{6pt}\selectfont JULIO\hspace{0.3em}BARÓN\\ \hspace{0.3em}VELANDIA\\}, professorwidth={0.35}, type={OB} }
+
+% --- TUTORÍA ---
+\simpleevent{ name={ESPECIALIZATION {\fontsize{12pt}{14pt}\selectfont 2}}, day={\LU}, start={18}, dur={2}, place={\vspace{-1pt} HOBBITON - THE SHIRE \\[1pt] {\fontsize{6pt}{7pt}\selectfont BAG END, WARM \\[1pt] HEARTH SWEET REST \\[1pt]}}, color={AceroLothlorien}, logic={B}}
+
+\simpleevent{ name={ESPECIALIZATION {\fontsize{12pt}{14pt}\selectfont 2}}, day={\MI}, start={18}, dur={2}, place={\vspace{-1pt} HOBBITON - THE SHIRE \\[1pt] {\fontsize{6pt}{7pt}\selectfont BAG END, WARM \\[1pt] HEARTH SWEET REST \\[1pt]}}, color={AceroLothlorien}, logic={B}}
+
+\simpleevent{ name={ESPECIALIZATION {\fontsize{12pt}{14pt}\selectfont 2}}, day={\JU}, start={18}, dur={2}, place={\vspace{-1pt} HOBBITON - THE SHIRE \\[1pt] {\fontsize{6pt}{7pt}\selectfont BAG END, WARM \\[1pt] HEARTH SWEET REST \\[1pt]}}, color={AceroLothlorien}, logic={B}}
+
+
+\end{tikzpicture}
+\vfill
+\end{document}
